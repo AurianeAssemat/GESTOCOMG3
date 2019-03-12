@@ -71,6 +71,10 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ path('consulterMonUsager',{'id':user.id}) }}">{{" " ~ user.nom ~ " " ~ user.prenom }}</a>
 						</li>
+						
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('listerMesHabitation',{'id':user.id}) }}">Mes Habitations</a>
+						</li>
 
 						<li class="nav-item">
 							<a class="nav-link" href="{{ path('leveesMois') }}">Mes levées</a>

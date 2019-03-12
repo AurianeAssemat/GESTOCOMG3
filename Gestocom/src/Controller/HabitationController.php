@@ -31,6 +31,25 @@ class HabitationController extends AbstractController
         return $this->render('habitation/consulterHabitation.html.twig', [
             'habitation' => $uneHabitation]);
     }
+	
+	public function consulterMonHabitation($id, Request $request) {
+		$user = $request->getSession()->get("user");
+		if ($user == null) {
+			return $this->redirectToRoute("index");
+		}
+
+		$repository = $this->getDoctrine()->getRepository(Habitation::class);
+		
+		//Si l'utilisateur est un Usager on recupere uniquement ses reclamations sinon si on est responsable on les recuperes toutes
+		if ($user instanceof Usager) {
+			$monHabitation = $repository->findOneById($id);
+		} else if ($user instanceof Responsable) {
+			$monHabitation = $repository->findAll();
+		}
+		
+		return $this->render('habitation/consulterMonHabitation.html.twig', [
+					'habitation' => $monHabitation]);
+	}
 
 
     public function listerHabitation()
@@ -44,6 +63,25 @@ class HabitationController extends AbstractController
         ]);
 
     }
+	
+	public function listerMesHabitation(Request $request) {
+		$user = $request->getSession()->get("user");
+		if ($user == null) {
+			return $this->redirectToRoute("index");
+		}
+
+		$repository = $this->getDoctrine()->getRepository(Habitation::class);
+		
+		//Si l'utilisateur est un Usager on recupere uniquement ses reclamations sinon si on est responsable on les recuperes toutes
+		if ($user instanceof Usager) {
+			$mesHabitation = $repository->findByUsager($user);
+		} else if ($user instanceof Responsable) {
+			$mesHabitation = $repository->findAll();
+		}
+		
+		return $this->render('habitation/listerMesHabitation.html.twig', [
+					'listeHabitation' => $mesHabitation]);
+	}
 	
 	public function ajouterHabitationUsager($id, Request $request)
     {

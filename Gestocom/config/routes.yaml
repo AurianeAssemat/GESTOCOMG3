@@ -31,7 +31,17 @@ consulterHabitation:
     controller : App\Controller\HabitationController::consulterHabitation
     requirements:
         id: '\d+'
-        
+
+consulterMonHabitation:
+    path: habitation/monHabitation/{id}
+    controller: App\Controller\HabitationController::consulterMonHabitation
+    requirements:
+        id: '\d+'
+
+listerMesHabitation:
+    path: /habitation/mesHabitations
+    controller: App\Controller\HabitationController::listerMesHabitation
+          
 modifierHabitation:
     path: /habitation/{id}/modifier
     controller : App\Controller\HabitationController::modifierHabitation

@@ -35,6 +35,24 @@ class HabitationRepository extends ServiceEntityRepository
         ;
     }
     */
+	
+	public function findByUsager($usager)
+    {
+		$u_id = $usager->getId();
+        $tempHabitations = $this->createQueryBuilder('habitation')
+            ->andWhere('habitation.usager = :id')
+            ->setParameter('id', $usager)
+            ->orderBy('habitation.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+		$habitations = array();
+		foreach($tempHabitations as $habitation) {
+			$habitations[] = $habitation;
+		}
+		
+		return $habitations;
+    }
 
     /*
     public function findOneBySomeField($value): ?Habitation
