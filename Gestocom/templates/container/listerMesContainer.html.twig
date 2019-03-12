@@ -1,0 +1,44 @@
+{% extends '/base.html.twig' %}
+
+{% block title %}Mes conteneurs{% endblock %}
+
+		
+{% block body %}
+
+	<div class="row">
+		<div class="col-sm">
+			<h3 class="text-center">Mes conteneurs</h3>
+
+			</br>
+			</br>
+			</br>
+			</br>
+			
+			<table class="table">
+				
+				<tr>
+					<th>Adresse</th>
+					<th>Charge utile</th>
+					<th>Type de déchet</th>
+					<th> </th>
+				
+				{% for c in pContainers %}
+				
+				<tr>
+					<td>{% if c.habitation is defined %} {{ c.habitation.adresse }} {{ c.habitation.copos }} {{ c.habitation.ville }}{% endif %} </td>
+					<td>{% if c.chargeUtile is defined %} {{ c.chargeUtile }}{% endif %} </td>
+					<td>{% if c.typeDechet is defined %} {{ c.typeDechet.libelle }}{% endif %} </td>
+					<td><a href="{{ path('consulterMonContainer', { 'id': c.id }) }}">Détail </a></td>
+				</tr>
+				{% else %}
+				<tr>
+					<td>Aucun conteneur n'a été trouvé.</td>
+				</tr>
+				{% endfor %}
+				
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+		

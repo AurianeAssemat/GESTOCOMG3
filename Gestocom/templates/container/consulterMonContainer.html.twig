@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+		
+		<h3>Mon conteneur</h3>
+	
+	<p>
+	Type de déchet : {{container.typeDechet.libelle}}
+	</p>
+	
+	<p>
+	Volume : {{container.volume}}
+	<br>
+	Poids brut : {{container.poidsBrut}}
+	<br>
+	Charge utile : {{container.chargeUtile}}
+	</p>
+	{#Levées :<a href="{{ path('listerContainerLevees', { 'id': container.id }) }}">Consulter les levées</a>#}
+	
+	
+	<p>
+		<a href="{{ path('consulterMonHabitation',{'id':container.habitation.id}) }}" >Retour à l'habitation {{container.habitation.adresse}} {{container.habitation.copos}} {{container.habitation.ville}}</a>
+	</p>
+	
+	<p>
+		<a href="{{ path('listerMesContainer', { 'id': container.habitation.usager.id }) }}">Retour à la liste de mes conteneurs</a>
+	</p>
+	
+{% endblock %}

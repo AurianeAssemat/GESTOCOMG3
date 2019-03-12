@@ -67,12 +67,50 @@ class ContainerController extends AbstractController
             'container' => $container,]);
 	}
 	
+	public function consulterMonContainer($id, Request $request) {
+		$user = $request->getSession()->get("user");
+		if ($user == null) {
+			return $this->redirectToRoute("index");
+		}
+
+		$repository = $this->getDoctrine()->getRepository(Container::class);
+		
+		//Si l'utilisateur est un Usager on recupere uniquement ses reclamations sinon si on est responsable on les recuperes toutes
+		if ($user instanceof Usager) {
+			$monContainer = $repository->findOneById($id);
+		} else if ($user instanceof Responsable) {
+			$monContainer = $repository->findAll();
+		}
+		
+		return $this->render('container/consulterMonContainer.html.twig', [
+					'container' => $monContainer]);
+	}
+	
 	public function listerContainer()
 	{
 		$repository = $this->getDoctrine()->getRepository(Container::class);
 		$containers = $repository->findByArchive(false);
 		return $this->render('container/lister.html.twig', [
             'pContainers' => $containers,]);
+	}
+	
+	public function listerMesContainer($id, Request $request) {
+		$user = $request->getSession()->get("user");
+		if ($user == null) {
+			return $this->redirectToRoute("index");
+		}
+
+		$repository = $this->getDoctrine()->getRepository(Container::class);
+		
+		//Si l'utilisateur est un Usager on recupere uniquement ses reclamations sinon si on est responsable on les recuperes toutes
+		if ($user instanceof Usager) {
+			$mesContainer = $repository->findByUsager($user);
+		} else if ($user instanceof Responsable) {
+			$mesContainer = $repository->findAll();
+		}
+		
+		return $this->render('container/listerMesContainer.html.twig', [
+					'pContainers' => $mesContainer]);
 	}
 	
 	public function ajouterContainerHabitation($id, Request $request)

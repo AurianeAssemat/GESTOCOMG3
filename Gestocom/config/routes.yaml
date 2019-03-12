@@ -254,6 +254,16 @@ archiverContainer:
     requirements:
         id: '\d+'
 
+consulterMonContainer:
+    path: /container/monContainer/{id}
+    controller: App\Controller\ContainerController::consulterMonContainer
+    requirements:
+        id: '\d+'
 
-   
+listerMesContainer:
+    path: /container/mesContainer/{id}
+    controller: App\Controller\ContainerController::listerMesContainer
+    requirements:
+        id: '\d+'
+
 

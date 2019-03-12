@@ -38,7 +38,6 @@ class HabitationRepository extends ServiceEntityRepository
 	
 	public function findByUsager($usager)
     {
-		$u_id = $usager->getId();
         $tempHabitations = $this->createQueryBuilder('habitation')
             ->andWhere('habitation.usager = :id')
             ->setParameter('id', $usager)

@@ -19,13 +19,16 @@
 			<td><a href="{{ path('modifierHabitation', { 'id': habitation.id }) }}"><button class="btn btn-primary">Modifier</button></a></td></tr>
 	
 		</p>
+		<p>
+		{#Levées :<a href="{{ path('listerHabitationLevees', { 'id': habitation.id }) }}">Consulter les levées</a>#}
+		</p>
 		
 		
 		<table class="table">
 			<tr></tr>
 			<tr><th>Liste des conteneurs</th><td>Volume</td><td>Poids Brut</td><td>Charge Utile</td></tr>
 			{% for c in habitation.containers %}
-				<tr><td><a href="{{ path('consulterContainer',{'id':c.id}) }}" >Consulter le conteneur</a></td><td>{{c.volume}}</td><td>{{c.poidsBrut}}</td><td>{{c.chargeUtile}}</td></tr>
+				<tr><td><a href="{{ path('consulterMonContainer',{'id':c.id}) }}" >Consulter le conteneur</a></td><td>{{c.volume}}</td><td>{{c.poidsBrut}}</td><td>{{c.chargeUtile}}</td></tr>
 			{% else %}
 				<tr>
 					<td>Aucun conteneur n'a été trouvé.</td>

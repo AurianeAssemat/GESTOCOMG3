@@ -36,7 +36,23 @@ class ContainerRepository extends ServiceEntityRepository
     }
     */
 	
-	
+	public function findByUsager($usager)
+    {
+        $tempContainers = $this->createQueryBuilder('container')
+			->innerJoin('container.habitation', 'h', 'WITH', 'h.id')
+            ->andWhere('h.usager = :id')
+            ->setParameter('id', $usager)
+            ->orderBy('container.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+		$containers = array();
+		foreach($tempContainers as $container) {
+			$containers[] = $container;
+		}
+		
+		return $containers;
+    }
 
     /*
     public function findOneBySomeField($value): ?Container
