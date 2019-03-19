@@ -25,7 +25,7 @@
 				{% for c in pContainers %}
 				
 				<tr>
-					<td>{% if c.habitation is defined %} {{ c.habitation.adresse }} {{ c.habitation.copos }} {{ c.habitation.ville }}{% endif %} </td>
+					<td><a href="{{ path('consulterMonHabitation', { 'id': c.habitation.id }) }}">{% if c.habitation is defined %} {{ c.habitation.adresse }} {{ c.habitation.copos }} {{ c.habitation.ville }}{% endif %} </a></td>
 					<td>{% if c.chargeUtile is defined %} {{ c.chargeUtile }}{% endif %} </td>
 					<td>{% if c.typeDechet is defined %} {{ c.typeDechet.libelle }}{% endif %} </td>
 					<td><a href="{{ path('consulterMonContainer', { 'id': c.id }) }}">Détail </a></td>
