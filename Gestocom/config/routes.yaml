@@ -261,9 +261,7 @@ consulterMonContainer:
         id: '\d+'
 
 listerMesContainer:
-    path: /container/mesContainer/{id}
+    path: /container/mesContainer
     controller: App\Controller\ContainerController::listerMesContainer
-    requirements:
-        id: '\d+'
 
 

@@ -75,7 +75,7 @@ class ContainerController extends AbstractController
 
 		$repository = $this->getDoctrine()->getRepository(Container::class);
 		
-		//Si l'utilisateur est un Usager on recupere uniquement ses reclamations sinon si on est responsable on les recuperes toutes
+		//Si l'utilisateur est un Usager on recupere uniquement son conteneurs sinon si on est responsable on les recuperes toutes
 		if ($user instanceof Usager) {
 			$monContainer = $repository->findOneById($id);
 		} else if ($user instanceof Responsable) {
@@ -94,17 +94,27 @@ class ContainerController extends AbstractController
             'pContainers' => $containers,]);
 	}
 	
-	public function listerMesContainer($id, Request $request) {
+	public function listerMesContainer(Request $request) {
 		$user = $request->getSession()->get("user");
 		if ($user == null) {
 			return $this->redirectToRoute("index");
 		}
 
 		$repository = $this->getDoctrine()->getRepository(Container::class);
+		$repohab = $this->getDoctrine()->getRepository(Habitation::class);
 		
-		//Si l'utilisateur est un Usager on recupere uniquement ses reclamations sinon si on est responsable on les recuperes toutes
+		//Si l'utilisateur est un Usager on recupere uniquement ses conteneurs sinon si on est responsable on les recuperes toutes
 		if ($user instanceof Usager) {
-			$mesContainer = $repository->findByUsager($user);
+			$mesHabitations = $repohab->findByUsager($user);
+			foreach ($mesHabitations as $habitation) {
+				$tempMesContainer[] = $repository->findByHabitation($habitation);
+			}
+			foreach($tempMesContainer as $desContainers) {
+				foreach($desContainers as $unContainer) {
+					$mesContainer[] = $unContainer;
+				}
+			}
+			
 		} else if ($user instanceof Responsable) {
 			$mesContainer = $repository->findAll();
 		}
