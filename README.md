@@ -42,9 +42,13 @@ L’application doit permettre aux usagers de consulter leurs factures dès que 
 
 # Collaborateurs
 
-Le projet étant réalisé par groupe de 4, voici la liste des personnes affectées sur le présent projet : 
+Le projet étant réalisé par groupe de 4, voici la liste des personnes affectées sur le projet initial : 
 - Justine MARTIN ([@justine-martin-study](https://github.com/justine-martin-study))
 - Auriane ASSEMAT ([@AurianeAssemat](https://github.com/AurianeAssemat))
 - Corentin VINCENT ([@cvincent14](https://github.com/cvincent14))
 - Quentin LECAPITAINE ([@Qlecap](https://github.com/Qlecap))
 
+Et voici ceux affectés pour l'épreuve :
+- Auriane ASSEMAT ([@AurianeAssemat](https://github.com/AurianeAssemat))
+- Thibaut JOUBERT ([@ThibautJoub](https://github.com/ThibautJoub))
+- Valentin BLANCHET ([@valentin50](https://github.com/valentin50))
