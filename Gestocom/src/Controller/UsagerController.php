@@ -136,12 +136,50 @@ class UsagerController extends AbstractController
         }
 	}
 	
+	public function modifierMonUsager($id, Request $request){
+
+		//récupération du usager dont l'id est passé en paramètre
+		$usager = $this->getDoctrine()
+			->getRepository(Usager::class)
+			->find($id);
+
+		if (!$usager) {
+			throw $this->createNotFoundException('Aucun usager trouvé avec le numéro '.$id);
+		}
+		else
+		{
+			$form = $this->createForm(UsagerMoiModifierType::class, $usager);
+			$form->handleRequest($request);
+
+			if ($form->isSubmitted() && $form->isValid()) {
+
+				$usager = $form->getData();
+				 
+				$usager->setMail($usager->getCompte()->getLogin());
+				
+				$compte = $usager->getCompte();
+				$mdp = hash("sha256", $compte->getMdp());
+				$compte->setMdp($mdp);
+				$compte->setArchive(false);
+				$usager->setCompte($compte);
+				 
+				 $entityManager = $this->getDoctrine()->getManager();
+				 $entityManager->persist($usager);
+				 $entityManager->flush();
+				 return $this->redirectToRoute("consulterMonUsager", array("id" => $usager->getId()));
+			}
+			else{
+				return $this->render('usager/ajouter.html.twig', array('form' => $form->createView(),'titre' =>"Modification "));
+			}
+		}
+	}
+	
 	public function archiverUsager($id, Request $request){
 
-	//récupération du usager dont l'id est passé en paramètre
-	$usager = $this->getDoctrine()
-		->getRepository(Usager::class)
-		->find($id);
+		//récupération du usager dont l'id est passé en paramètre
+		$usager = $this->getDoctrine()
+			->getRepository(Usager::class)
+			->find($id);
 
 		if (!$usager) {
 			throw $this->createNotFoundException('Aucun usager trouvé avec le numéro '.$id);
